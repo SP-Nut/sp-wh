@@ -76,19 +76,19 @@ export function PriceCalculator() {
   return (
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
       {/* Header */}
-      <div className="bg-primary-900 p-6 text-white">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-12 h-12 bg-accent-500 rounded-xl flex items-center justify-center">
-            <Calculator className="w-6 h-6" />
+      <div className="bg-primary-900 p-4 sm:p-6 text-white">
+        <div className="flex items-center gap-2 sm:gap-3 mb-2">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent-500 rounded-xl flex items-center justify-center">
+            <Calculator className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h3 className="text-xl font-bold">คำนวณราคาโกดัง</h3>
-            <p className="text-sm text-gray-300">ประมาณการราคาเบื้องต้น</p>
+            <h3 className="text-lg sm:text-xl font-bold">คำนวณราคาโกดัง</h3>
+            <p className="text-xs sm:text-sm text-gray-300">ประมาณการราคาเบื้องต้น</p>
           </div>
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* ขนาดพื้นที่ */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -199,8 +199,8 @@ export function PriceCalculator() {
                 </div>
               )}
               <div className="flex justify-between items-center pt-3 border-t border-gray-200">
-                <span className="text-lg font-semibold text-primary-900">ราคาประมาณการ</span>
-                <span className="text-2xl font-bold text-accent-500">
+                <span className="text-base sm:text-lg font-semibold text-primary-900">ราคาประมาณการ</span>
+                <span className="text-xl sm:text-2xl font-bold text-accent-500">
                   ฿{formatPrice(calculation.finalPrice)}
                 </span>
               </div>

@@ -58,15 +58,15 @@ export function Header() {
 
       {/* Main header */}
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/images/โลโก้แวร์เฮ้าส์.png"
               alt="SP Warehouse Logo"
-              width={280}
-              height={100}
-              className="object-contain h-20 w-auto"
+              width={180}
+              height={60}
+              className="object-contain h-12 sm:h-14 w-auto"
               quality={100}
               priority
               unoptimized
@@ -106,7 +106,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-gray-700"
+            className="lg:hidden p-3 -m-1 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-700"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >

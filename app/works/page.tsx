@@ -87,24 +87,24 @@ export default function WorksPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12 bg-accent-500">
+      <section className="py-10 sm:py-12 bg-accent-500">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-white">1,500+</p>
-              <p className="text-white/80">โปรเจกต์สำเร็จ</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">1,500+</p>
+              <p className="text-white/80 text-sm sm:text-base">โปรเจกต์สำเร็จ</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-white">77</p>
-              <p className="text-white/80">จังหวัดทั่วไทย</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">77</p>
+              <p className="text-white/80 text-sm sm:text-base">จังหวัดทั่วไทย</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-white">35+</p>
-              <p className="text-white/80">ปีประสบการณ์</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">35+</p>
+              <p className="text-white/80 text-sm sm:text-base">ปีประสบการณ์</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-white">100%</p>
-              <p className="text-white/80">ความพึงพอใจ</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">100%</p>
+              <p className="text-white/80 text-sm sm:text-base">ความพึงพอใจ</p>
             </div>
           </div>
         </div>

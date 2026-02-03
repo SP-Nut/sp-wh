@@ -54,20 +54,20 @@ function StatItem({ label, value, suffix }: { label: string; value: string; suff
 
   return (
     <div ref={ref} className="text-center">
-      <p className="text-4xl md:text-5xl font-bold text-accent-400 mb-2">
+      <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-400 mb-2">
         {displayValue}
         {suffix}
       </p>
-      <p className="text-primary-200">{label}</p>
+      <p className="text-primary-200 text-sm sm:text-base">{label}</p>
     </div>
   );
 }
 
 export function StatsSection() {
   return (
-    <section className="py-16 bg-primary-900">
+    <section className="py-12 sm:py-16 bg-primary-900">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
           {STATS.map((stat, index) => (
             <StatItem key={index} {...stat} />
           ))}

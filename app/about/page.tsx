@@ -79,9 +79,9 @@ export default function AboutPage() {
                   unoptimized
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-accent-500 text-white p-6 rounded-2xl shadow-xl">
-                <p className="text-4xl font-bold">{SITE_CONFIG.experience}+</p>
-                <p className="text-sm">ปีประสบการณ์</p>
+              <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-accent-500 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-xl">
+                <p className="text-2xl sm:text-4xl font-bold">{SITE_CONFIG.experience}+</p>
+                <p className="text-xs sm:text-sm">ปีประสบการณ์</p>
               </div>
             </div>
 
@@ -128,15 +128,15 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-primary-900">
+      <section className="py-12 sm:py-16 bg-primary-900">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
             {STATS.map((stat, index) => (
               <div key={index}>
-                <p className="text-3xl md:text-4xl font-bold text-accent-400">
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400">
                   {stat.value}{stat.suffix}
                 </p>
-                <p className="text-gray-300">{stat.label}</p>
+                <p className="text-gray-300 text-sm sm:text-base">{stat.label}</p>
               </div>
             ))}
           </div>

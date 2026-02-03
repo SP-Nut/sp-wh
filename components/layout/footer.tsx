@@ -17,8 +17,8 @@ export function Footer() {
   return (
     <footer className="bg-primary-900 text-white">
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="container mx-auto px-4 py-10 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div>
             <div className="mb-6">
@@ -94,12 +94,12 @@ export function Footer() {
           {/* Social Links */}
           <div>
             <h3 className="text-lg font-semibold mb-6">ติดตามเรา</h3>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <a
                 href={SITE_CONFIG.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
@@ -108,7 +108,7 @@ export function Footer() {
                 href={SITE_CONFIG.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
                 aria-label="Youtube"
               >
                 <Youtube className="w-5 h-5" />
@@ -117,7 +117,7 @@ export function Footer() {
                 href={SITE_CONFIG.lineUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] bg-primary-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
                 aria-label="LINE"
               >
                 <MessageCircle className="w-5 h-5" />

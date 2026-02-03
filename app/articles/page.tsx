@@ -99,9 +99,9 @@ export default function ArticlesPage() {
       </section>
 
       {/* Articles Grid */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {SAMPLE_ARTICLES.map((article) => (
               <article
                 key={article.id}
@@ -120,8 +120,8 @@ export default function ArticlesPage() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-3">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {article.date}

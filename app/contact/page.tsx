@@ -169,7 +169,7 @@ export default function ContactPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-primary-900 mb-6">
                 แผนที่
               </h2>
-              <div className="aspect-square lg:aspect-4/3 bg-gray-100 rounded-2xl overflow-hidden">
+              <div className="aspect-video sm:aspect-4/3 lg:aspect-4/3 bg-gray-100 rounded-2xl overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.789!2d100.6392!3d13.8127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ4JzQ1LjciTiAxMDDCsDM4JzIxLjEiRQ!5e0!3m2!1sth!2sth!4v1234567890"
                   width="100%"
