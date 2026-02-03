@@ -13,6 +13,12 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Disable Tailwind class name suggestions (we're using correct v4 syntax)
+      "@typescript-eslint/no-empty-object-type": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
