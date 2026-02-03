@@ -37,7 +37,7 @@ export default function AboutPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 bg-primary-900 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 bg-primary-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/hero-bg.webp"
@@ -48,10 +48,10 @@ export default function AboutPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               เกี่ยวกับเรา
             </h1>
-            <p className="text-lg text-gray-300 mb-6">
+            <p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6">
               รู้จัก SP WAREHOUSE ผู้เชี่ยวชาญด้านโกดังสำเร็จรูปกว่า 35 ปี
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -64,9 +64,9 @@ export default function AboutPage() {
       </section>
 
       {/* About Content */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-10 sm:py-14 lg:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image */}
             <div className="relative">
               <div className="aspect-4/3 bg-primary-100 rounded-2xl overflow-hidden flex items-center justify-center">
@@ -144,11 +144,11 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-10 sm:py-14 lg:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-accent-500 font-semibold mb-2">ค่านิยมของเรา</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-900">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900">
               ทำไมต้องเลือก SP WAREHOUSE
             </h2>
           </div>
@@ -175,12 +175,12 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-white">
+      <section className="py-10 sm:py-14 lg:py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary-900 mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-3 sm:mb-4">
             พร้อมเริ่มโปรเจกต์ของคุณ?
           </h2>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-gray-600 mb-5 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base">
             ติดต่อเราวันนี้เพื่อรับคำปรึกษาฟรี ทีมงานผู้เชี่ยวชาญพร้อมให้บริการ
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -1,4 +1,4 @@
-import { ChevronRight, Shield, Truck, Award, Calculator } from "lucide-react";
+import { ChevronRight, Calculator } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui";
@@ -55,28 +55,6 @@ export function HeroSection() {
               <Button variant="outline" size="lg" href="/products" className="w-full sm:w-auto justify-center border-white text-white hover:bg-white hover:text-primary-900">
                 ดูขนาดโกดัง
               </Button>
-            </div>
-
-            {/* Trust Badges - Scrollable on mobile */}
-            <div className="flex gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible sm:flex-wrap">
-              <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-white/10">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-500 rounded-lg flex items-center justify-center">
-                  <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <span className="text-white text-xs sm:text-sm font-medium whitespace-nowrap">มาตรฐาน มอก.</span>
-              </div>
-              <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-white/10">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-500 rounded-lg flex items-center justify-center">
-                  <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <span className="text-white text-xs sm:text-sm font-medium whitespace-nowrap">บริการครบวงจร</span>
-              </div>
-              <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-white/10">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-accent-500 rounded-lg flex items-center justify-center">
-                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-                <span className="text-white text-xs sm:text-sm font-medium whitespace-nowrap">ทั่วประเทศ</span>
-              </div>
             </div>
 
             {/* Stats */}

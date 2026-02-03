@@ -15,7 +15,7 @@ export default function ProductsPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 bg-primary-900 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 bg-primary-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/hero-bg.webp"
@@ -26,10 +26,10 @@ export default function ProductsPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               ขนาดโกดังสำเร็จรูป
             </h1>
-            <p className="text-lg text-gray-300 mb-6">
+            <p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6">
               เลือกขนาดโกดังที่เหมาะกับธุรกิจของคุณ ตั้งแต่ขนาดเล็กไปจนถึงขนาดใหญ่
               พร้อมออกแบบตามความต้องการ
             </p>
@@ -55,9 +55,9 @@ export default function ProductsPage() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-10 sm:py-14 lg:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {WAREHOUSE_SIZES.map((size) => (
               <div
                 key={size.id}
@@ -104,9 +104,9 @@ export default function ProductsPage() {
       </section>
 
       {/* Price Calculator Section */}
-      <section id="calculator" className="py-16 lg:py-24 bg-gray-50">
+      <section id="calculator" className="py-10 sm:py-14 lg:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div>
               <p className="text-accent-500 font-semibold mb-2">คำนวณราคา</p>
               <h2 className="text-2xl md:text-3xl font-bold text-primary-900 mb-4">
@@ -143,12 +143,12 @@ export default function ProductsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary-900">
+      <section className="py-10 sm:py-14 lg:py-16 bg-primary-900">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
             ต้องการขนาดพิเศษ?
           </h2>
-          <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+          <p className="text-gray-300 mb-5 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base">
             เราสามารถออกแบบและสร้างโกดังตามขนาดที่คุณต้องการได้
             ติดต่อเราเพื่อรับคำปรึกษาฟรี
           </p>

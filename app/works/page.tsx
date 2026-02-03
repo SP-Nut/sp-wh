@@ -60,7 +60,7 @@ export default function WorksPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 bg-primary-900 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 bg-primary-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/hero-bg.webp"
@@ -71,10 +71,10 @@ export default function WorksPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               ผลงานของเรา
             </h1>
-            <p className="text-lg text-gray-300 mb-6">
+            <p className="text-base sm:text-lg text-gray-300 mb-4 sm:mb-6">
               ผลงานโกดังสำเร็จรูปที่เราภูมิใจนำเสนอ กว่า 1,500 โปรเจกต์ทั่วประเทศไทย
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -111,13 +111,13 @@ export default function WorksPage() {
       </section>
 
       {/* Works Grid */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-10 sm:py-14 lg:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-900 mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-3 sm:mb-4">
               ตัวอย่างผลงานล่าสุด
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
               ผลงานโกดังสำเร็จรูปที่เราสร้างให้ลูกค้าทั่วประเทศ
             </p>
           </div>
@@ -170,12 +170,12 @@ export default function WorksPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary-900">
+      <section className="py-10 sm:py-14 lg:py-16 bg-primary-900">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
             พร้อมเริ่มโปรเจกต์ของคุณ?
           </h2>
-          <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+          <p className="text-gray-300 mb-5 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base">
             ให้เราช่วยสร้างโกดังในฝันของคุณ ติดต่อเราวันนี้เพื่อรับคำปรึกษาฟรี
           </p>
           <Button size="lg" href={SITE_CONFIG.lineUrl} external>
