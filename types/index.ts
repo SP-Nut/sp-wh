@@ -1,43 +1,20 @@
 export type { Database } from "./database";
 
-export interface NavLink {
-  href: string;
-  label: string;
-}
+// Work/Portfolio Types
+export type WorkCategoryId = "warehouse" | "roof" | "carport" | "shop";
+export type ViewCategoryId = "exterior" | "interior" | "structure" | "design";
 
-export interface WarehouseSize {
-  id: string;
+export interface WorkCategory {
+  id: WorkCategoryId;
   name: string;
-  slug: string;
-  minSize: number;
-  maxSize: number | null;
-}
-
-export interface Stat {
-  label: string;
-  value: string;
-  suffix: string;
-}
-
-export interface Service {
-  title: string;
   description: string;
   icon: string;
+  count: number;
 }
 
-export interface ProcessStep {
-  step: number;
-  title: string;
+export interface ViewCategory {
+  id: ViewCategoryId;
+  name: string;
   description: string;
-}
-
-export interface ContactFormData {
-  firstName: string;
-  lastName?: string;
-  phone: string;
-  email?: string;
-  address?: string;
-  lineId?: string;
-  warehouseSize?: string;
-  message?: string;
+  icon: string;
 }

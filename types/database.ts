@@ -67,45 +67,27 @@ export interface Database {
           id: string;
           created_at: string;
           updated_at: string;
-          title: string;
-          slug: string;
-          description: string | null;
-          location: string | null;
-          size: number | null;
           image_url: string;
-          gallery: string[] | null;
-          completed_at: string | null;
-          is_featured: boolean;
+          category: string;
+          view_category: string;
           is_active: boolean;
         };
         Insert: {
           id?: string;
           created_at?: string;
           updated_at?: string;
-          title: string;
-          slug: string;
-          description?: string | null;
-          location?: string | null;
-          size?: number | null;
           image_url: string;
-          gallery?: string[] | null;
-          completed_at?: string | null;
-          is_featured?: boolean;
+          category: string;
+          view_category: string;
           is_active?: boolean;
         };
         Update: {
           id?: string;
           created_at?: string;
           updated_at?: string;
-          title?: string;
-          slug?: string;
-          description?: string | null;
-          location?: string | null;
-          size?: number | null;
           image_url?: string;
-          gallery?: string[] | null;
-          completed_at?: string | null;
-          is_featured?: boolean;
+          category?: string;
+          view_category?: string;
           is_active?: boolean;
         };
       };
@@ -116,12 +98,14 @@ export interface Database {
           updated_at: string;
           title: string;
           slug: string;
+          category: string | null;
           excerpt: string | null;
           content: string;
           image_url: string | null;
           author: string | null;
           is_published: boolean;
           published_at: string | null;
+          view_count: number;
         };
         Insert: {
           id?: string;
@@ -129,12 +113,14 @@ export interface Database {
           updated_at?: string;
           title: string;
           slug: string;
+          category?: string | null;
           excerpt?: string | null;
           content: string;
           image_url?: string | null;
           author?: string | null;
           is_published?: boolean;
           published_at?: string | null;
+          view_count?: number;
         };
         Update: {
           id?: string;
@@ -142,12 +128,14 @@ export interface Database {
           updated_at?: string;
           title?: string;
           slug?: string;
+          category?: string | null;
           excerpt?: string | null;
           content?: string;
           image_url?: string | null;
           author?: string | null;
           is_published?: boolean;
           published_at?: string | null;
+          view_count?: number;
         };
       };
       contacts: {

@@ -17,6 +17,10 @@ const eslintConfig = defineConfig([
     rules: {
       // Disable Tailwind class name suggestions (we're using correct v4 syntax)
       "@typescript-eslint/no-empty-object-type": "off",
+      // Allow img tags for external images from Supabase
+      "@next/next/no-img-element": "off",
+      // Allow any for type casting when needed
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ]);

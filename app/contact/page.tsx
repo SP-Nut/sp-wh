@@ -3,13 +3,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Phone, Mail, MapPin, Clock, MessageCircle, Facebook, Youtube, Send, FileText } from "lucide-react";
 import { Button } from "@/components/ui";
+import { BreadcrumbSchema, ContactPageSchema } from "@/components/seo";
 import { SITE_CONFIG } from "@/lib/constants";
 import { ContactForm } from "@/components/forms/contact-form";
 
 export const metadata: Metadata = {
-  title: "ติดต่อเรา | SP WAREHOUSE",
-  description: "ติดต่อ SP WAREHOUSE สอบถามข้อมูล ขอใบเสนอราคา หรือนัดหมายเข้าสำรวจพื้นที่",
+  title: "ติดต่อเรา",
+  description: `ติดต่อ SP WAREHOUSE สอบถามข้อมูล ขอใบเสนอราคาโกดังสำเร็จรูปฟรี โทร ${SITE_CONFIG.phone} หรือ LINE ${SITE_CONFIG.lineId}`,
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/contact`,
+  },
+  openGraph: {
+    title: "ติดต่อเรา - SP WAREHOUSE",
+    description: "สอบถามข้อมูล ขอใบเสนอราคาโกดังสำเร็จรูปฟรี พร้อมให้บริการทั่วประเทศ",
+    url: `${SITE_CONFIG.url}/contact`,
+  },
 };
+
+const breadcrumbs = [
+  { name: "หน้าแรก", url: SITE_CONFIG.url },
+  { name: "ติดต่อเรา", url: `${SITE_CONFIG.url}/contact` },
+];
 
 const CONTACT_METHODS = [
   {
@@ -45,6 +59,8 @@ const CONTACT_METHODS = [
 export default function ContactPage() {
   return (
     <main>
+      <BreadcrumbSchema items={breadcrumbs} />
+      <ContactPageSchema />
       {/* Hero Section */}
       <section className="relative py-10 sm:py-14 lg:py-16 bg-primary-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">

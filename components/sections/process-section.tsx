@@ -1,39 +1,67 @@
-import { PROCESS_STEPS } from "@/lib/constants";
+import { COMPANY_STRENGTHS } from "@/lib/constants";
+import { Settings, Ruler, Wrench, Headset, Trophy } from "lucide-react";
+
+const ICON_MAP = {
+  Settings,
+  Ruler,
+  Wrench,
+  Headset,
+  Trophy,
+};
 
 export function ProcessSection() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <p className="text-accent-600 font-semibold mb-2">ขั้นตอนการทำงาน</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-900 mb-4">
-            ขั้นตอนการสั่งสร้างโกดัง
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-2">
+            สร้างโกดังสินค้ากับ <span className="text-accent-500">SP WAREHOUSE</span>
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base">
-            เราทำให้กระบวนการสร้างโกดังของคุณเป็นเรื่องง่าย ด้วยขั้นตอนที่ชัดเจน
-          </p>
         </div>
 
-        {/* Process Steps */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {PROCESS_STEPS.map((item, index) => (
-            <div
-              key={index}
-              className="relative bg-gray-50 p-5 sm:p-6 lg:p-8 rounded-2xl border border-gray-100 hover:border-accent-300 hover:shadow-md transition-all"
-            >
-              {/* Step Number */}
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
-                {item.step}
+        {/* Top Row - 3 items */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          {COMPANY_STRENGTHS.slice(0, 3).map((item, index) => {
+            const Icon = ICON_MAP[item.icon as keyof typeof ICON_MAP];
+            return (
+              <div key={index} className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-600" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-primary-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                </div>
               </div>
-              <div className="pt-4">
-                <h3 className="text-xl font-bold text-primary-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
+            );
+          })}
+        </div>
+
+        {/* Bottom Row - 2 items centered */}
+        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+          {COMPANY_STRENGTHS.slice(3).map((item, index) => {
+            const Icon = ICON_MAP[item.icon as keyof typeof ICON_MAP];
+            return (
+              <div key={index} className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary-600" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-primary-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

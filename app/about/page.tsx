@@ -3,11 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Shield, Award, Users, Target, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui";
+import { BreadcrumbSchema } from "@/components/seo";
 import { SITE_CONFIG, STATS } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "เกี่ยวกับเรา | SP WAREHOUSE",
-  description: "SP WAREHOUSE ผู้เชี่ยวชาญด้านโกดังสำเร็จรูปกว่า 35 ปี บริการครบวงจร วัสดุคุณภาพมาตรฐาน มอก.",
+  title: "เกี่ยวกับเรา",
+  description: "SP WAREHOUSE ผู้เชี่ยวชาญด้านโกดังสำเร็จรูปกว่า 35 ปี บริการครบวงจร วัสดุคุณภาพมาตรฐาน มอก. ส่งมอบงานกว่า 1,500 โปรเจกต์ทั่วประเทศ",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/about`,
+  },
+  openGraph: {
+    title: "เกี่ยวกับเรา - SP WAREHOUSE",
+    description: "ผู้เชี่ยวชาญด้านโกดังสำเร็จรูปกว่า 35 ปี บริการครบวงจร วัสดุคุณภาพมาตรฐาน มอก.",
+    url: `${SITE_CONFIG.url}/about`,
+  },
 };
 
 const VALUES = [
@@ -33,9 +42,15 @@ const VALUES = [
   },
 ];
 
+const breadcrumbs = [
+  { name: "หน้าแรก", url: SITE_CONFIG.url },
+  { name: "เกี่ยวกับเรา", url: `${SITE_CONFIG.url}/about` },
+];
+
 export default function AboutPage() {
   return (
     <main>
+      <BreadcrumbSchema items={breadcrumbs} />
       {/* Hero Section */}
       <section className="relative py-12 sm:py-16 lg:py-20 bg-primary-900 overflow-hidden">
         <div className="absolute inset-0 opacity-20">

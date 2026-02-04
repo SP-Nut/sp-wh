@@ -1,4 +1,5 @@
-import { Warehouse, Home, Car, Store } from "lucide-react";
+import Link from "next/link";
+import { Warehouse, Home, Car, Store, ArrowRight } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
 
 const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
@@ -29,8 +30,9 @@ export function ServicesSection() {
           {SERVICES.map((service, index) => {
             const IconComponent = iconMap[service.icon] || Warehouse;
             return (
-              <div
+              <Link
                 key={index}
+                href={service.href}
                 className="group bg-white p-5 sm:p-6 lg:p-8 rounded-2xl border border-gray-100 hover:border-accent-300 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-14 h-14 bg-accent-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-500 transition-colors">
@@ -39,10 +41,14 @@ export function ServicesSection() {
                 <h3 className="text-xl font-bold text-primary-900 mb-2">
                   {service.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-3">
                   {service.description}
                 </p>
-              </div>
+                <span className="inline-flex items-center gap-1 text-accent-600 text-sm font-medium group-hover:text-accent-700">
+                  ดูผลงาน
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
             );
           })}
         </div>

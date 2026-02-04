@@ -39,6 +39,14 @@ export function ContactForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    // ถ้าเป็น phone field ให้รับเฉพาะตัวเลข
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, "");
+      setFormData((prev) => ({ ...prev, [name]: numericValue }));
+      return;
+    }
+    
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -137,7 +145,10 @@ export function ContactForm() {
             value={formData.phone}
             onChange={handleChange}
             required
-            placeholder="เบอร์โทร"
+            maxLength={10}
+            pattern="[0-9]*"
+            inputMode="numeric"
+            placeholder="0812345678"
             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
           />
         </div>
