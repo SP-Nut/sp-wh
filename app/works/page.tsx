@@ -64,25 +64,25 @@ export default function WorksPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 text-center">
             <div>
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-accent-400">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400">
                 1,500+
               </p>
               <p className="text-primary-200 text-xs sm:text-sm">โปรเจกต์สำเร็จ</p>
             </div>
             <div>
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-accent-400">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400">
                 77
               </p>
               <p className="text-primary-200 text-xs sm:text-sm">จังหวัดทั่วไทย</p>
             </div>
             <div>
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-accent-400">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400">
                 35+
               </p>
               <p className="text-primary-200 text-xs sm:text-sm">ปีประสบการณ์</p>
             </div>
             <div>
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-accent-400">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-400">
                 100%
               </p>
               <p className="text-primary-200 text-xs sm:text-sm">ความพึงพอใจ</p>

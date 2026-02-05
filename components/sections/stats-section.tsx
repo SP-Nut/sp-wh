@@ -54,7 +54,7 @@ function StatItem({ label, value, suffix }: { label: string; value: string; suff
 
   return (
     <div ref={ref} className="text-center">
-      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-accent-400 mb-1">
+      <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-400 mb-1">
         {displayValue}
         {suffix}
       </p>
