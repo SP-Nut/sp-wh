@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Prompt } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { LayoutWrapper } from "@/components/layout";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/seo";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -121,6 +122,7 @@ export default function RootLayout({
         <LayoutWrapper>
           <main className="min-h-screen">{children}</main>
         </LayoutWrapper>
+        <Analytics />
       </body>
     </html>
   );
