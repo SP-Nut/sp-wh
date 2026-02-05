@@ -11,7 +11,6 @@ import {
   Images, 
   FileText, 
   LogOut,
-  MessageSquare,
   ChevronRight
 } from "lucide-react";
 
@@ -29,13 +28,6 @@ const MENU_ITEMS = [
     href: "/admin/articles",
     icon: FileText,
     color: "bg-green-100 text-green-600",
-  },
-  {
-    title: "ข้อความติดต่อ",
-    description: "ดูข้อความจากลูกค้าที่ติดต่อเข้ามา",
-    href: "/admin/contacts",
-    icon: MessageSquare,
-    color: "bg-purple-100 text-purple-600",
   },
 ];
 
