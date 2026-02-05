@@ -49,20 +49,12 @@ export function ImageLightbox({ image, isOpen, onClose }: ImageLightboxProps) {
           <X className="w-8 h-8" />
         </button>
 
-        {/* Image */}
-        {image.src ? (
-          <img
-            src={image.src}
-            alt=""
-            className="w-full max-h-[80vh] object-contain rounded-xl"
-          />
-        ) : (
-          <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-primary-200 to-primary-300 rounded-xl">
-            <p className="text-primary-600 text-sm">
-              (รูปภาพจะแสดงเมื่อมีการอัพโหลด)
-            </p>
-          </div>
-        )}
+        {/* Image from Database */}
+        <img
+          src={image.src}
+          alt=""
+          className="w-full max-h-[80vh] object-contain rounded-xl"
+        />
       </div>
     </div>
   );

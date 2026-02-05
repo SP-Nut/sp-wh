@@ -20,16 +20,13 @@ export function WorkCard({ image, onImageClick }: WorkCardProps) {
       className="group aspect-square bg-primary-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer relative"
       onClick={handleClick}
     >
-      {/* Image or Placeholder */}
-      {image.src ? (
-        <img
-          src={image.src}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-100 to-primary-200" />
-      )}
+      {/* Image from Database */}
+      <img
+        src={image.src}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
       
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-primary-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

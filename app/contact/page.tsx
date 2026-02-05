@@ -222,14 +222,14 @@ export default function ContactPage() {
           <div className="max-w-5xl mx-auto">
             <div className="aspect-video sm:aspect-[21/9] bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.789!2d100.6392!3d13.8127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ4JzQ1LjciTiAxMDDCsDM4JzIxLjEiRQ!5e0!3m2!1sth!2sth!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.5!2d100.6539!3d13.8194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x235205839485eea9%3A0x1599d8d61520a74d!2sSP%20Warehouse!5e0!3m2!1sth!2sth!4v1707100000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="SP Warehouse Location"
+                title="SP Warehouse Location - 28/101 ถ. รัชดา-รามอินทรา แขวงคลองกุ่ม เขตบึงกุ่ม กรุงเทพมหานคร"
               ></iframe>
             </div>
             <div className="mt-4 text-center">
