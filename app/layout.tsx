@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Prompt } from "next/font/google";
-import { Header, Footer } from "@/components/layout";
+import { LayoutWrapper } from "@/components/layout";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/seo";
 import { SITE_CONFIG } from "@/lib/constants";
 import "./globals.css";
@@ -118,9 +118,9 @@ export default function RootLayout({
         <WebSiteSchema />
       </head>
       <body className="font-sans antialiased">
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <LayoutWrapper>
+          <main className="min-h-screen">{children}</main>
+        </LayoutWrapper>
       </body>
     </html>
   );
