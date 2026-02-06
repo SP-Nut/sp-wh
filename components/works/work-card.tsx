@@ -1,6 +1,7 @@
 "use client";
 
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
+import Image from "next/image";
 import { ZoomIn } from "lucide-react";
 import type { WorkImage } from "@/lib/works-data";
 
@@ -10,6 +11,8 @@ interface WorkCardProps {
 }
 
 export const WorkCard = memo(function WorkCard({ image, onImageClick }: WorkCardProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
   const handleClick = useCallback(() => {
     if (onImageClick) {
       onImageClick(image);
@@ -21,13 +24,21 @@ export const WorkCard = memo(function WorkCard({ image, onImageClick }: WorkCard
       className="group aspect-square bg-primary-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer relative"
       onClick={handleClick}
     >
-      {/* Image from Database */}
-      <img
+      {/* Image with Next.js optimization and caching */}
+      <Image
         src={image.src}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className={`object-cover transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
         loading="lazy"
+        onLoad={() => setIsLoaded(true)}
       />
+      
+      {/* Loading placeholder */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-primary-100 animate-pulse" />
+      )}
       
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-primary-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

@@ -13,6 +13,7 @@ import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/types/database";
 import { Button } from "@/components/ui";
 import { SITE_CONFIG } from "@/lib/constants";
+import { getCachedWorks, setCachedWorks } from "@/lib/cache/works-cache";
 import { Warehouse, Home, Car, Store, Building2, Eye, Layers, Ruler, Loader2, ImageOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -107,9 +108,17 @@ export function WorksGallery() {
   const [isPending, startTransition] = useTransition();
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
-  // Fetch images from database
+  // Fetch images from database with caching
   useEffect(() => {
     const fetchImages = async () => {
+      // Check cache first
+      const cached = getCachedWorks();
+      if (cached) {
+        setDbImages(cached);
+        setIsLoading(false);
+        return;
+      }
+      
       setIsLoading(true);
       setError(null);
       
@@ -134,6 +143,7 @@ export function WorksGallery() {
             viewCategory: item.view_category as WorkImage["viewCategory"],
           }));
           setDbImages(images);
+          setCachedWorks(images); // Cache the data
         }
       } catch (err) {
         console.error("Error:", err);

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, memo } from "react";
-import { X } from "lucide-react";
+import { useEffect, memo, useState } from "react";
+import Image from "next/image";
+import { X, Loader2 } from "lucide-react";
 import type { WorkImage } from "@/lib/works-data";
 
 interface ImageLightboxProps {
@@ -9,6 +10,30 @@ interface ImageLightboxProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// Separate image component that resets via key
+const LightboxImage = memo(function LightboxImage({ src }: { src: string }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  return (
+    <div className="relative w-full aspect-video">
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Loader2 className="w-8 h-8 text-white animate-spin" />
+        </div>
+      )}
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(max-width: 1024px) 100vw, 80vw"
+        className={`object-contain rounded-xl transition-opacity duration-200 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        priority
+        onLoad={() => setIsLoaded(true)}
+      />
+    </div>
+  );
+});
 
 export const ImageLightbox = memo(function ImageLightbox({ image, isOpen, onClose }: ImageLightboxProps) {
   // Handle keyboard navigation
@@ -49,12 +74,8 @@ export const ImageLightbox = memo(function ImageLightbox({ image, isOpen, onClos
           <X className="w-8 h-8" />
         </button>
 
-        {/* Image from Database */}
-        <img
-          src={image.src}
-          alt=""
-          className="w-full max-h-[80vh] object-contain rounded-xl"
-        />
+        {/* Image - key prop resets the component when src changes */}
+        <LightboxImage key={image.src} src={image.src} />
       </div>
     </div>
   );
