@@ -458,10 +458,14 @@ export default function AdminWorksPage() {
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   )}
                 >
-                  ทั้งหมด ({works.length})
+                  ทั้งหมด ({filterView === "all" ? works.length : works.filter(w => w.view_category === filterView).length})
                 </button>
                 {CATEGORIES.map((cat) => {
-                  const count = works.filter(w => w.category === cat.value).length;
+                  // Count filtered by current view filter
+                  const count = works.filter(w => 
+                    w.category === cat.value && 
+                    (filterView === "all" || w.view_category === filterView)
+                  ).length;
                   return (
                     <button
                       key={cat.value}
@@ -493,10 +497,14 @@ export default function AdminWorksPage() {
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   )}
                 >
-                  ทั้งหมด
+                  ทั้งหมด ({filterCategory === "all" ? works.length : works.filter(w => w.category === filterCategory).length})
                 </button>
                 {VIEW_CATEGORIES.map((view) => {
-                  const count = works.filter(w => w.view_category === view.value).length;
+                  // Count filtered by current category filter
+                  const count = works.filter(w => 
+                    w.view_category === view.value && 
+                    (filterCategory === "all" || w.category === filterCategory)
+                  ).length;
                   return (
                     <button
                       key={view.value}
