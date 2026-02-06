@@ -64,19 +64,37 @@ const WorkCard = memo(function WorkCard({
   isSelected: boolean;
   onToggleSelect: (id: string) => void;
 }) {
+  const handleClick = useCallback(() => {
+    if (isSelecting) onToggleSelect(work.id);
+  }, [isSelecting, onToggleSelect, work.id]);
+
+  const handleEditClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    onEdit(work);
+  }, [onEdit, work]);
+
+  const handleDeleteClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(work.id, work.image_url);
+  }, [onDelete, work.id, work.image_url]);
+
+  const categoryLabel = CATEGORIES.find((c) => c.value === work.category)?.label || work.category;
+  const viewLabel = VIEW_CATEGORIES.find((v) => v.value === work.view_category)?.label || work.view_category;
+
   return (
     <div 
       className={cn(
-        "relative group aspect-square bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer",
+        "relative group aspect-square bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer contain-paint",
         isSelected && "ring-4 ring-red-500"
       )}
-      onClick={() => isSelecting && onToggleSelect(work.id)}
+      onClick={handleClick}
     >
       <img
         src={work.image_url}
         alt=""
         className="w-full h-full object-cover"
         loading="lazy"
+        decoding="async"
       />
       {/* Selection Checkbox */}
       {isSelecting && (
@@ -90,17 +108,17 @@ const WorkCard = memo(function WorkCard({
       )}
       {/* Overlay - only show when not selecting */}
       {!isSelecting && (
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center gap-2 pointer-events-none group-hover:pointer-events-auto will-change-opacity">
           <button
-            onClick={() => onEdit(work)}
-            className="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-colors"
+            onClick={handleEditClick}
+            className="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center"
             title="แก้ไขหมวดหมู่"
           >
             <Edit3 className="w-5 h-5" />
           </button>
           <button
-            onClick={() => onDelete(work.id, work.image_url)}
-            className="w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-colors"
+            onClick={handleDeleteClick}
+            className="w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center"
             title="ลบรูป"
           >
             <Trash2 className="w-5 h-5" />
@@ -110,10 +128,10 @@ const WorkCard = memo(function WorkCard({
       {/* Category Badge */}
       <div className="absolute bottom-2 left-2 right-2 flex gap-1 flex-wrap">
         <span className="bg-primary-900/80 text-white text-xs px-2 py-0.5 rounded">
-          {CATEGORIES.find((c) => c.value === work.category)?.label || work.category}
+          {categoryLabel}
         </span>
         <span className="bg-accent-500/80 text-white text-xs px-2 py-0.5 rounded">
-          {VIEW_CATEGORIES.find((v) => v.value === work.view_category)?.label || work.view_category}
+          {viewLabel}
         </span>
       </div>
     </div>

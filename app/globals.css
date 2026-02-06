@@ -120,3 +120,12 @@ img {
     max-width: 1280px;
   }
 }
+
+/* Performance utilities */
+.contain-paint {
+  contain: paint;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
