@@ -96,10 +96,10 @@ export function WorksGallery() {
   // Initialize category from URL param
   const initialCategory = categoryParam && ["warehouse", "roof", "carport", "shop"].includes(categoryParam) 
     ? categoryParam 
-    : "all";
+    : "warehouse"; // Default to warehouse
   
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
-  const [selectedView, setSelectedView] = useState<string>("all");
+  const [selectedView, setSelectedView] = useState<string>("design"); // Default to 3D design
   const [selectedImage, setSelectedImage] = useState<WorkImage | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [dbImages, setDbImages] = useState<WorkImage[]>([]);
