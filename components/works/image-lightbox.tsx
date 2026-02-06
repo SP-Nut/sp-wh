@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { X } from "lucide-react";
 import type { WorkImage } from "@/lib/works-data";
 
@@ -10,7 +10,7 @@ interface ImageLightboxProps {
   onClose: () => void;
 }
 
-export function ImageLightbox({ image, isOpen, onClose }: ImageLightboxProps) {
+export const ImageLightbox = memo(function ImageLightbox({ image, isOpen, onClose }: ImageLightboxProps) {
   // Handle keyboard navigation
   useEffect(() => {
     if (!isOpen) return;
@@ -58,4 +58,4 @@ export function ImageLightbox({ image, isOpen, onClose }: ImageLightboxProps) {
       </div>
     </div>
   );
-}
+});

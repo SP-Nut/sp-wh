@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useTransition, useCallback } from "react";
+import { useState, useMemo, useEffect, useTransition, useCallback, memo } from "react";
 import { useSearchParams } from "next/navigation";
 import { WorkCard, WorkCardSkeleton } from "@/components/works/work-card";
 import { ImageLightbox } from "@/components/works/image-lightbox";
@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 
 type WorkRow = Database["public"]["Tables"]["works"]["Row"];
 
+const ITEMS_PER_PAGE = 8;
+
 // Icon mapping
 const CATEGORY_ICONS = {
   warehouse: Warehouse,
@@ -32,6 +34,59 @@ const VIEW_ICONS = {
   structure: Layers,
   design: Ruler,
 };
+
+// Memoized filter button component
+const FilterButton = memo(function FilterButton({ 
+  isActive, 
+  onClick, 
+  children,
+  className
+}: { 
+  isActive: boolean; 
+  onClick: () => void; 
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+        isActive
+          ? "bg-primary-900 text-white"
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200",
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+});
+
+// Memoized view filter button
+const ViewFilterButton = memo(function ViewFilterButton({ 
+  isActive, 
+  onClick, 
+  children 
+}: { 
+  isActive: boolean; 
+  onClick: () => void; 
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border",
+        isActive
+          ? "bg-accent-50 border-accent-300 text-accent-700"
+          : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
+      )}
+    >
+      {children}
+    </button>
+  );
+});
 
 export function WorksGallery() {
   const searchParams = useSearchParams();
@@ -50,9 +105,7 @@ export function WorksGallery() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [visibleCount, setVisibleCount] = useState(8);
-  
-  const ITEMS_PER_PAGE = 8;
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
   // Fetch images from database
   useEffect(() => {
@@ -111,32 +164,36 @@ export function WorksGallery() {
   }, []);
 
   const handleCategoryChange = useCallback((category: string) => {
-    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    setVisibleCount(ITEMS_PER_PAGE);
     startTransition(() => {
       setSelectedCategory(category);
     });
-  }, [ITEMS_PER_PAGE]);
+  }, []);
 
   const handleViewChange = useCallback((view: string) => {
-    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    setVisibleCount(ITEMS_PER_PAGE);
     startTransition(() => {
       setSelectedView(view);
     });
-  }, [ITEMS_PER_PAGE]);
+  }, []);
 
   const clearFilters = useCallback(() => {
-    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    setVisibleCount(ITEMS_PER_PAGE);
     startTransition(() => {
       setSelectedCategory("all");
       setSelectedView("all");
     });
-  }, [ITEMS_PER_PAGE]);
+  }, []);
 
   const loadMore = useCallback(() => {
     startTransition(() => {
       setVisibleCount(prev => prev + ITEMS_PER_PAGE);
     });
-  }, [ITEMS_PER_PAGE]);
+  }, []);
+
+  const handleCloseLightbox = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
 
   // Visible images with pagination
   const visibleImages = useMemo(() => {
@@ -169,33 +226,24 @@ export function WorksGallery() {
             <div className="mb-4">
               <p className="text-sm font-medium text-gray-500 mb-3">ประเภทงาน</p>
               <div className="flex flex-wrap gap-2">
-                <button
+                <FilterButton
+                  isActive={selectedCategory === "all"}
                   onClick={() => handleCategoryChange("all")}
-                  className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
-                    selectedCategory === "all"
-                      ? "bg-primary-900 text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  )}
                 >
                   ทั้งหมด
-                </button>
+                </FilterButton>
                 {WORK_CATEGORIES.map((cat) => {
                   const Icon = CATEGORY_ICONS[cat.id as keyof typeof CATEGORY_ICONS];
                   return (
-                    <button
+                    <FilterButton
                       key={cat.id}
+                      isActive={selectedCategory === cat.id}
                       onClick={() => handleCategoryChange(cat.id)}
-                      className={cn(
-                        "px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2",
-                        selectedCategory === cat.id
-                          ? "bg-primary-900 text-white"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                      )}
+                      className="flex items-center gap-2"
                     >
                       <Icon className="w-4 h-4" />
                       {cat.name}
-                    </button>
+                    </FilterButton>
                   );
                 })}
               </div>
@@ -205,33 +253,25 @@ export function WorksGallery() {
             <div>
               <p className="text-sm font-medium text-gray-500 mb-3">มุมมอง</p>
               <div className="flex flex-wrap gap-2">
-                <button
+                <ViewFilterButton
+                  isActive={selectedView === "all"}
                   onClick={() => handleViewChange("all")}
-                  className={cn(
-                    "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border",
-                    selectedView === "all"
-                      ? "bg-accent-50 border-accent-300 text-accent-700"
-                      : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                  )}
                 >
                   ทั้งหมด
-                </button>
+                </ViewFilterButton>
                 {VIEW_CATEGORIES.map((view) => {
                   const Icon = VIEW_ICONS[view.id as keyof typeof VIEW_ICONS];
                   return (
-                    <button
+                    <ViewFilterButton
                       key={view.id}
+                      isActive={selectedView === view.id}
                       onClick={() => handleViewChange(view.id)}
-                      className={cn(
-                        "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border flex items-center gap-1.5",
-                        selectedView === view.id
-                          ? "bg-accent-50 border-accent-300 text-accent-700"
-                          : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                      )}
                     >
-                      <Icon className="w-4 h-4" />
-                      {view.name}
-                    </button>
+                      <span className="flex items-center gap-1.5">
+                        <Icon className="w-4 h-4" />
+                        {view.name}
+                      </span>
+                    </ViewFilterButton>
                   );
                 })}
               </div>
@@ -301,10 +341,13 @@ export function WorksGallery() {
           {/* Images Grid */}
           {!isLoading && !error && filteredImages.length > 0 && (
             <>
-              <div className={cn(
-                "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 transition-opacity duration-150",
-                isPending && "opacity-60"
-              )}>
+              <div 
+                className={cn(
+                  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4",
+                  isPending && "opacity-60"
+                )}
+                style={{ contentVisibility: "auto", containIntrinsicSize: "0 500px" }}
+              >
                 {visibleImages.map((image) => (
                   <WorkCard
                     key={image.id}
@@ -355,7 +398,7 @@ export function WorksGallery() {
       <ImageLightbox
         image={selectedImage}
         isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
+        onClose={handleCloseLightbox}
       />
     </>
   );
