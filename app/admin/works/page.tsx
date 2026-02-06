@@ -151,6 +151,7 @@ export default function AdminWorksPage() {
   
   // New states for optimization
   const [filterCategory, setFilterCategory] = useState("all");
+  const [filterView, setFilterView] = useState("all");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [isPending, startTransition] = useTransition();
   
@@ -190,10 +191,12 @@ export default function AdminWorksPage() {
 
   const refreshWorks = () => setRefreshKey(prev => prev + 1);
 
-  // Filter works by category
-  const filteredWorks = filterCategory === "all" 
-    ? works 
-    : works.filter(w => w.category === filterCategory);
+  // Filter works by category and view
+  const filteredWorks = works.filter(w => {
+    const matchCategory = filterCategory === "all" || w.category === filterCategory;
+    const matchView = filterView === "all" || w.view_category === filterView;
+    return matchCategory && matchView;
+  });
   
   const visibleWorks = filteredWorks.slice(0, visibleCount);
   const hasMore = filteredWorks.length > visibleCount;
@@ -202,6 +205,13 @@ export default function AdminWorksPage() {
     setVisibleCount(ITEMS_PER_PAGE);
     startTransition(() => {
       setFilterCategory(cat);
+    });
+  }, []);
+
+  const handleViewFilterChange = useCallback((view: string) => {
+    setVisibleCount(ITEMS_PER_PAGE);
+    startTransition(() => {
+      setFilterView(view);
     });
   }, []);
 
@@ -434,37 +444,75 @@ export default function AdminWorksPage() {
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Filter Tabs */}
         {works.length > 0 && (
-          <div className="bg-white rounded-xl p-4 mb-6 shadow-sm">
-            <p className="text-sm font-medium text-gray-500 mb-3">กรองตามประเภท</p>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => handleFilterChange("all")}
-                className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-colors",
-                  filterCategory === "all"
-                    ? "bg-primary-900 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                )}
-              >
-                ทั้งหมด ({works.length})
-              </button>
-              {CATEGORIES.map((cat) => {
-                const count = works.filter(w => w.category === cat.value).length;
-                return (
-                  <button
-                    key={cat.value}
-                    onClick={() => handleFilterChange(cat.value)}
-                    className={cn(
-                      "px-4 py-2 rounded-full text-sm font-medium transition-colors",
-                      filterCategory === cat.value
-                        ? "bg-primary-900 text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    )}
-                  >
-                    {cat.label} ({count})
-                  </button>
-                );
-              })}
+          <div className="bg-white rounded-xl p-4 mb-6 shadow-sm space-y-4">
+            {/* Category Filter */}
+            <div>
+              <p className="text-sm font-medium text-gray-500 mb-3">กรองตามประเภท</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => handleFilterChange("all")}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                    filterCategory === "all"
+                      ? "bg-primary-900 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  )}
+                >
+                  ทั้งหมด ({works.length})
+                </button>
+                {CATEGORIES.map((cat) => {
+                  const count = works.filter(w => w.category === cat.value).length;
+                  return (
+                    <button
+                      key={cat.value}
+                      onClick={() => handleFilterChange(cat.value)}
+                      className={cn(
+                        "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                        filterCategory === cat.value
+                          ? "bg-primary-900 text-white"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      )}
+                    >
+                      {cat.label} ({count})
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            
+            {/* View Filter */}
+            <div>
+              <p className="text-sm font-medium text-gray-500 mb-3">กรองตามมุมมอง</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => handleViewFilterChange("all")}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                    filterView === "all"
+                      ? "bg-accent-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  )}
+                >
+                  ทั้งหมด
+                </button>
+                {VIEW_CATEGORIES.map((view) => {
+                  const count = works.filter(w => w.view_category === view.value).length;
+                  return (
+                    <button
+                      key={view.value}
+                      onClick={() => handleViewFilterChange(view.value)}
+                      className={cn(
+                        "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                        filterView === view.value
+                          ? "bg-accent-500 text-white"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      )}
+                    >
+                      {view.label} ({count})
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
