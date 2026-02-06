@@ -17,6 +17,7 @@ import {
   Tag,
   X
 } from "lucide-react";
+import { optimizeCloudinaryUrl } from "@/lib/utils";
 
 // หมวดหมู่เริ่มต้น
 const DEFAULT_CATEGORIES = [
@@ -317,7 +318,7 @@ export default function NewArticlePage() {
             {formData.image_url ? (
               <div className="relative">
                 <img
-                  src={formData.image_url}
+                  src={optimizeCloudinaryUrl(formData.image_url, 800, 384)}
                   alt=""
                   className="w-full h-48 object-cover rounded-lg"
                 />

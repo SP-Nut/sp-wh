@@ -21,7 +21,7 @@ import {
   Circle,
   XCircle
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, optimizeCloudinaryUrl } from "@/lib/utils";
 
 interface WorkImage {
   id: string;
@@ -90,7 +90,7 @@ const WorkCard = memo(function WorkCard({
       onClick={handleClick}
     >
       <img
-        src={work.image_url}
+        src={optimizeCloudinaryUrl(work.image_url, 400, 400)}
         alt=""
         className="w-full h-full object-cover"
         loading="lazy"
@@ -176,7 +176,7 @@ export default function AdminWorksPage() {
       setLoading(true);
       const { data, error } = await supabase
         .from("works")
-        .select("*")
+        .select("*", { count: "exact" })
         .order("created_at", { ascending: false });
 
       if (!error && data) {
@@ -650,7 +650,7 @@ export default function AdminWorksPage() {
             {/* Preview */}
             <div className="mb-6">
               <img
-                src={editingWork.image_url}
+                src={optimizeCloudinaryUrl(editingWork.image_url, 800, 450)}
                 alt=""
                 className="w-full aspect-video object-cover rounded-lg"
               />

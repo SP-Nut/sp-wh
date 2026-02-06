@@ -17,6 +17,7 @@ import {
   EyeOff,
   FileText
 } from "lucide-react";
+import { optimizeCloudinaryUrl } from "@/lib/utils";
 
 interface Article {
   id: string;
@@ -161,9 +162,10 @@ export default function AdminArticlesPage() {
                       <div className="flex items-center gap-3">
                         {article.image_url ? (
                           <img
-                            src={article.image_url}
+                            src={optimizeCloudinaryUrl(article.image_url, 96, 96)}
                             alt=""
                             className="w-12 h-12 rounded-lg object-cover"
+                            loading="lazy"
                           />
                         ) : (
                           <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
