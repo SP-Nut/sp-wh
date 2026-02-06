@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui";
 import { WAREHOUSE_SIZES } from "@/lib/constants";
@@ -26,12 +27,16 @@ export function ProductsSection() {
               href={`/products/${size.slug}`}
               className="group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 hover:border-accent-300 hover:shadow-lg transition-all duration-300"
             >
-              {/* Image Placeholder */}
-              <div className="aspect-4/3 bg-gray-100 flex items-center justify-center group-hover:bg-accent-50 transition-colors">
-                <div className="text-center">
-                  <span className="text-2xl sm:text-4xl">🏭</span>
-                  <p className="text-gray-500 text-xs sm:text-sm mt-1 sm:mt-2">{size.name}</p>
-                </div>
+              {/* Image */}
+              <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden w-full group-hover:bg-accent-50 transition-colors">
+                <Image
+                  src={size.image}
+                  alt={`โกดังสำเร็จรูป ${size.name}`}
+                  fill
+                  unoptimized
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
               </div>
 
               {/* Content */}

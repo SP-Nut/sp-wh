@@ -136,15 +136,16 @@ export default async function WarehouseSizePage({ params }: PageProps) {
       <section className="py-10 sm:py-14 lg:py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left - Image/Illustration */}
-            <div className="bg-primary-50 rounded-2xl p-8 lg:p-12 flex items-center justify-center min-h-[300px] lg:min-h-[400px]">
-              <div className="text-center">
-                <Ruler className="w-20 h-20 text-primary-600 mx-auto mb-4" />
-                <p className="text-2xl font-bold text-primary-900 mb-2">
-                  {warehouse.name}
-                </p>
-                <p className="text-primary-600">{warehouse.title}</p>
-              </div>
+            {/* Left - Image */}
+            <div className="bg-gray-100 rounded-2xl overflow-hidden relative min-h-[300px] lg:min-h-[400px] w-full">
+              <Image
+                src={warehouse.image}
+                alt={`โกดังสำเร็จรูป ${warehouse.name}`}
+                fill
+                unoptimized
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
 
             {/* Right - Features */}
@@ -270,22 +271,27 @@ export default async function WarehouseSizePage({ params }: PageProps) {
               <Link
                 key={size.id}
                 href={`/products/${size.slug}`}
-                className="group bg-white rounded-xl p-6 border border-gray-100 hover:shadow-lg hover:border-primary-200 transition-all"
+                className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg hover:border-primary-200 transition-all"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 group-hover:bg-primary-600 group-hover:text-white transition-colors">
-                    <Ruler className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-primary-900">{size.title}</h3>
-                    <p className="text-sm text-gray-500">{size.name}</p>
-                  </div>
+                <div className="aspect-video relative bg-gray-100 w-full">
+                  <Image
+                    src={size.image}
+                    alt={`โกดังสำเร็จรูป ${size.name}`}
+                    fill
+                    unoptimized
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
-                <p className="text-gray-600 text-sm mb-4">{size.description}</p>
-                <span className="inline-flex items-center gap-1 text-primary-600 font-medium text-sm group-hover:text-primary-700">
-                  ดูรายละเอียด
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
+                <div className="p-6">
+                  <h3 className="font-bold text-primary-900 mb-1">{size.title}</h3>
+                  <p className="text-sm text-gray-500 mb-2">{size.name}</p>
+                  <p className="text-gray-600 text-sm mb-4">{size.description}</p>
+                  <span className="inline-flex items-center gap-1 text-primary-600 font-medium text-sm group-hover:text-primary-700">
+                    ดูรายละเอียด
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

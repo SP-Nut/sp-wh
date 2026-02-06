@@ -95,11 +95,15 @@ export default function ProductsPage() {
                 className="group bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100"
               >
                 {/* Image */}
-                <div className="aspect-video bg-primary-100 flex items-center justify-center">
-                  <div className="text-center">
-                    <Ruler className="w-12 h-12 text-primary-600 mx-auto mb-2" />
-                    <p className="text-primary-700 font-medium">{size.name}</p>
-                  </div>
+                <div className="aspect-video bg-gray-100 relative overflow-hidden w-full">
+                  <Image
+                    src={size.image}
+                    alt={`โกดังสำเร็จรูป ${size.name}`}
+                    fill
+                    unoptimized
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
                 </div>
 
                 {/* Content */}
