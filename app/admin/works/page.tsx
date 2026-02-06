@@ -150,8 +150,8 @@ export default function AdminWorksPage() {
   const [refreshKey, setRefreshKey] = useState(0);
   
   // New states for optimization
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [filterView, setFilterView] = useState("all");
+  const [filterCategory, setFilterCategory] = useState("warehouse");
+  const [filterView, setFilterView] = useState("design");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [isPending, startTransition] = useTransition();
   
