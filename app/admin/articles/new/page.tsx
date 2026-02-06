@@ -14,7 +14,8 @@ import {
   Loader2,
   Upload,
   Plus,
-  Tag
+  Tag,
+  X
 } from "lucide-react";
 
 // หมวดหมู่เริ่มต้น
@@ -71,6 +72,14 @@ export default function NewArticlePage() {
     }
   };
 
+  const deleteCategory = (cat: string) => {
+    if (!confirm(`ลบหมวดหมู่ "${cat}"?`)) return;
+    setCategories(prev => prev.filter(c => c !== cat));
+    if (formData.category === cat) {
+      setFormData(prev => ({ ...prev, category: "" }));
+    }
+  };
+
   useEffect(() => {
     if (!authLoading && !user) {
       router.push("/admin");
@@ -106,20 +115,23 @@ export default function NewArticlePage() {
 
     setUploading(true);
 
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const filePath = `articles/${fileName}`;
+    try {
+      // Upload to Cloudinary via API
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "articles");
 
-    const { error: uploadError } = await supabase.storage
-      .from("images")
-      .upload(filePath, file);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (!uploadError) {
-      const { data: { publicUrl } } = supabase.storage
-        .from("images")
-        .getPublicUrl(filePath);
-
-      setFormData((prev) => ({ ...prev, image_url: publicUrl }));
+      if (response.ok) {
+        const { url } = await response.json();
+        setFormData((prev) => ({ ...prev, image_url: url }));
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
     }
 
     setUploading(false);
@@ -234,18 +246,29 @@ export default function NewArticlePage() {
             </label>
             <div className="flex flex-wrap gap-2 mb-3">
               {categories.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setFormData((prev) => ({ ...prev, category: cat }))}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                    formData.category === cat
-                      ? "bg-primary-900 text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  }`}
-                >
-                  {cat}
-                </button>
+                <div key={cat} className="relative group">
+                  <button
+                    type="button"
+                    onClick={() => setFormData((prev) => ({ ...prev, category: cat }))}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      formData.category === cat
+                        ? "bg-primary-900 text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                  {!DEFAULT_CATEGORIES.includes(cat) && (
+                    <button
+                      type="button"
+                      onClick={() => deleteCategory(cat)}
+                      className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                      title="ลบหมวดหมู่"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
               ))}
               {!showNewCategory && (
                 <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useTransition, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Calendar, ArrowRight, FileText, Tag, Loader2 } from "lucide-react";
@@ -36,6 +36,7 @@ export function ArticlesGrid() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || "all");
   const [loading, setLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
 
   // Fetch articles
   useEffect(() => {
@@ -67,14 +68,16 @@ export function ArticlesGrid() {
     return articles.filter(a => a.category === selectedCategory);
   }, [articles, selectedCategory]);
 
-  const handleCategoryChange = (cat: string) => {
-    setSelectedCategory(cat);
+  const handleCategoryChange = useCallback((cat: string) => {
+    startTransition(() => {
+      setSelectedCategory(cat);
+    });
     if (cat === "all") {
       router.push("/articles", { scroll: false });
     } else {
       router.push(`/articles?category=${encodeURIComponent(cat)}`, { scroll: false });
     }
-  };
+  }, [router]);
 
   if (loading) {
     return (
@@ -97,7 +100,7 @@ export function ArticlesGrid() {
             <button
               onClick={() => handleCategoryChange("all")}
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                "px-4 py-2 rounded-full text-sm font-medium transition-colors",
                 selectedCategory === "all"
                   ? "bg-primary-900 text-white"
                   : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
@@ -112,7 +115,7 @@ export function ArticlesGrid() {
                   key={cat}
                   onClick={() => handleCategoryChange(cat)}
                   className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
                     selectedCategory === cat
                       ? "bg-primary-900 text-white"
                       : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
@@ -128,11 +131,14 @@ export function ArticlesGrid() {
 
       {/* Articles Grid */}
       {filteredArticles.length > 0 ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+        <div className={cn(
+          "grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 transition-opacity duration-150",
+          isPending && "opacity-60"
+        )}>
           {filteredArticles.map((article) => (
             <article
               key={article.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300"
             >
               {/* Image */}
               <div className="aspect-video bg-primary-100 relative overflow-hidden">

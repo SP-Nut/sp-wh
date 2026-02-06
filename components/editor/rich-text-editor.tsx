@@ -25,7 +25,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCallback, useRef } from "react";
-import { supabase } from "@/lib/supabase/client";
 
 interface RichTextEditorProps {
   content: string;
@@ -65,28 +64,29 @@ function MenuBar({ editor }: { editor: Editor | null }) {
   const addImage = useCallback(async (file: File) => {
     if (!editor) return;
 
-    // Upload to Supabase Storage
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const filePath = `articles/${fileName}`;
+    try {
+      // Upload to Cloudinary via API
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "articles");
 
-    const { error } = await supabase.storage
-      .from("images")
-      .upload(filePath, file);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (error) {
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const { url } = await response.json();
+
+      // Insert image
+      editor.chain().focus().setImage({ src: url }).run();
+    } catch (error) {
       console.error("Upload error:", error);
       alert("อัพโหลดรูปไม่สำเร็จ");
-      return;
     }
-
-    // Get public URL
-    const { data: urlData } = supabase.storage
-      .from("images")
-      .getPublicUrl(filePath);
-
-    // Insert image
-    editor.chain().focus().setImage({ src: urlData.publicUrl }).run();
   }, [editor]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

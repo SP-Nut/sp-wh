@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
@@ -19,10 +20,13 @@ export function Header() {
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img
+            <Image
               src="/images/sp-warehouse-logo.png"
               alt="SP Warehouse Logo"
+              width={160}
+              height={56}
               className="object-contain h-12 sm:h-14 w-auto"
+              priority
             />
           </Link>
 

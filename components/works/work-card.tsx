@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useCallback } from "react";
 import { ZoomIn } from "lucide-react";
 import type { WorkImage } from "@/lib/works-data";
 
@@ -8,16 +9,16 @@ interface WorkCardProps {
   onImageClick?: (image: WorkImage) => void;
 }
 
-export function WorkCard({ image, onImageClick }: WorkCardProps) {
-  const handleClick = () => {
+export const WorkCard = memo(function WorkCard({ image, onImageClick }: WorkCardProps) {
+  const handleClick = useCallback(() => {
     if (onImageClick) {
       onImageClick(image);
     }
-  };
+  }, [image, onImageClick]);
 
   return (
     <div
-      className="group aspect-square bg-primary-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer relative"
+      className="group aspect-square bg-primary-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer relative"
       onClick={handleClick}
     >
       {/* Image from Database */}
@@ -30,13 +31,13 @@ export function WorkCard({ image, onImageClick }: WorkCardProps) {
       
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-primary-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
           <ZoomIn className="w-6 h-6 text-white" />
         </div>
       </div>
     </div>
   );
-}
+})
 
 // Skeleton loader for WorkCard
 export function WorkCardSkeleton() {

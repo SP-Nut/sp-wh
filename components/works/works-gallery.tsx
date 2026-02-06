@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useTransition, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { WorkCard, WorkCardSkeleton } from "@/components/works/work-card";
 import { ImageLightbox } from "@/components/works/image-lightbox";
@@ -49,6 +49,10 @@ export function WorksGallery() {
   const [dbImages, setDbImages] = useState<WorkImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [visibleCount, setVisibleCount] = useState(8);
+  
+  const ITEMS_PER_PAGE = 8;
 
   // Fetch images from database
   useEffect(() => {
@@ -101,15 +105,45 @@ export function WorksGallery() {
     });
   }, [selectedCategory, selectedView, allImages]);
 
-  const handleImageClick = (image: WorkImage) => {
+  const handleImageClick = useCallback((image: WorkImage) => {
     setSelectedImage(image);
     setLightboxOpen(true);
-  };
+  }, []);
 
-  const clearFilters = () => {
-    setSelectedCategory("all");
-    setSelectedView("all");
-  };
+  const handleCategoryChange = useCallback((category: string) => {
+    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    startTransition(() => {
+      setSelectedCategory(category);
+    });
+  }, [ITEMS_PER_PAGE]);
+
+  const handleViewChange = useCallback((view: string) => {
+    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    startTransition(() => {
+      setSelectedView(view);
+    });
+  }, [ITEMS_PER_PAGE]);
+
+  const clearFilters = useCallback(() => {
+    setVisibleCount(ITEMS_PER_PAGE); // Reset when filter changes
+    startTransition(() => {
+      setSelectedCategory("all");
+      setSelectedView("all");
+    });
+  }, [ITEMS_PER_PAGE]);
+
+  const loadMore = useCallback(() => {
+    startTransition(() => {
+      setVisibleCount(prev => prev + ITEMS_PER_PAGE);
+    });
+  }, [ITEMS_PER_PAGE]);
+
+  // Visible images with pagination
+  const visibleImages = useMemo(() => {
+    return filteredImages.slice(0, visibleCount);
+  }, [filteredImages, visibleCount]);
+
+  const hasMore = filteredImages.length > visibleCount;
 
   const hasFilters = selectedCategory !== "all" || selectedView !== "all";
 
@@ -136,9 +170,9 @@ export function WorksGallery() {
               <p className="text-sm font-medium text-gray-500 mb-3">ประเภทงาน</p>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => setSelectedCategory("all")}
+                  onClick={() => handleCategoryChange("all")}
                   className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
                     selectedCategory === "all"
                       ? "bg-primary-900 text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -151,9 +185,9 @@ export function WorksGallery() {
                   return (
                     <button
                       key={cat.id}
-                      onClick={() => setSelectedCategory(cat.id)}
+                      onClick={() => handleCategoryChange(cat.id)}
                       className={cn(
-                        "px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                        "px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2",
                         selectedCategory === cat.id
                           ? "bg-primary-900 text-white"
                           : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -172,9 +206,9 @@ export function WorksGallery() {
               <p className="text-sm font-medium text-gray-500 mb-3">มุมมอง</p>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => setSelectedView("all")}
+                  onClick={() => handleViewChange("all")}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-sm font-medium transition-all border",
+                    "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border",
                     selectedView === "all"
                       ? "bg-accent-50 border-accent-300 text-accent-700"
                       : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
@@ -187,9 +221,9 @@ export function WorksGallery() {
                   return (
                     <button
                       key={view.id}
-                      onClick={() => setSelectedView(view.id)}
+                      onClick={() => handleViewChange(view.id)}
                       className={cn(
-                        "px-3 py-1.5 rounded-lg text-sm font-medium transition-all border flex items-center gap-1.5",
+                        "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border flex items-center gap-1.5",
                         selectedView === view.id
                           ? "bg-accent-50 border-accent-300 text-accent-700"
                           : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
@@ -266,15 +300,33 @@ export function WorksGallery() {
 
           {/* Images Grid */}
           {!isLoading && !error && filteredImages.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-              {filteredImages.map((image) => (
-                <WorkCard
-                  key={image.id}
-                  image={image}
-                  onImageClick={handleImageClick}
-                />
-              ))}
-            </div>
+            <>
+              <div className={cn(
+                "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 transition-opacity duration-150",
+                isPending && "opacity-60"
+              )}>
+                {visibleImages.map((image) => (
+                  <WorkCard
+                    key={image.id}
+                    image={image}
+                    onImageClick={handleImageClick}
+                  />
+                ))}
+              </div>
+              
+              {/* Load More Button */}
+              {hasMore && (
+                <div className="text-center mt-8">
+                  <Button
+                    variant="outline"
+                    onClick={loadMore}
+                    disabled={isPending}
+                  >
+                    {isPending ? "กำลังโหลด..." : `ดูเพิ่มเติม (${filteredImages.length - visibleCount} รูป)`}
+                  </Button>
+                </div>
+              )}
+            </>
           )}
 
           {/* No results for filter */}

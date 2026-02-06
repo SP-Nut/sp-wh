@@ -77,9 +77,25 @@ export default function AdminArticlesPage() {
     refreshArticles();
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, imageUrl?: string | null) => {
     if (!confirm("ต้องการลบบทความนี้?")) return;
+    
+    // Delete from database
     await supabase.from("articles").delete().eq("id", id);
+    
+    // Delete image from Cloudinary
+    if (imageUrl && imageUrl.includes("cloudinary.com")) {
+      const match = imageUrl.match(/\/upload\/(?:v\d+\/)?(sp-warehouse\/.+?)(?:\.[^.]+)?$/);
+      if (match) {
+        const publicId = match[1];
+        await fetch("/api/upload", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ publicId }),
+        });
+      }
+    }
+    
     refreshArticles();
   };
 
@@ -199,7 +215,7 @@ export default function AdminArticlesPage() {
                           <Edit className="w-4 h-4" />
                         </Link>
                         <button
-                          onClick={() => handleDelete(article.id)}
+                          onClick={() => handleDelete(article.id, article.image_url)}
                           className="p-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Phone,
   Mail,
@@ -21,9 +22,11 @@ export function Footer() {
           {/* Company Info */}
           <div>
             <div className="mb-6">
-              <img
+              <Image
                 src="/images/sp-warehouse-logo.png"
                 alt="SP Warehouse Logo"
+                width={160}
+                height={64}
                 className="object-contain h-16 w-auto"
               />
             </div>
